@@ -1,0 +1,25 @@
+server:
+  port: 8090
+
+spring:
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+  application:
+    name: producer-service
+  data:
+    mongodb:
+      uri: mongodb://root:example@mongo:27017/notifications-db?authSource=admin
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+  metrics:
+    web:
+      server:
+        auto-time-requests: true

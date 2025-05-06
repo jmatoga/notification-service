@@ -1,0 +1,36 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017" # MongoDB default port
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_ROOT_USERNAME: root
+      MONGO_ROOT_PASSWORD: example
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  # RabbitMQ default port
+      - "15672:15672" # RabbitMQ management plugin (web UI)
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  producer-service:
+    build:
+      context: .
+    image: producer-service
+    container_name: producer-service
+    ports:
+      - "8083:8080"
+    depends_on:
+      - mongo
+      - rabbitmq
+
+# Volumes do MongoDB - wolumeny zapobiegają usunieciu danych gdy kontener usuwany/zatrzymywany
+volumes:
+  mongo-data:

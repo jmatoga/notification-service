@@ -36,7 +36,7 @@ public class QuartzNotificationServiceImpl implements QuartzNotificationService 
                                                   ? adjustToAllowedHours(notification)
                                                   : new Date(System.currentTimeMillis() + retryDelayMillis)
                                   )
-                                  .withPriority(notification.getPriority() == HIGH ? 10 : 5)
+                                  .withPriority(notification.getPriority() == HIGH ? 100 : 50)
                                   .withSchedule(SimpleScheduleBuilder.simpleSchedule().withMisfireHandlingInstructionFireNow())
                                   .build();
 

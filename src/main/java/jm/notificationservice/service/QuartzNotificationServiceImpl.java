@@ -1,5 +1,6 @@
 package jm.notificationservice.service;
 
+import jm.notificationservice.exception.NotificationNotFoundException;
 import jm.notificationservice.job.NotificationJob;
 import jm.notificationservice.model.Notification;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +51,7 @@ public class QuartzNotificationServiceImpl implements QuartzNotificationService 
             scheduler.deleteJob(jobKey);
             log.info("Notification {} canceled", notificationId);
         } else {
-            log.info("Notification {} not found", notificationId);
+            throw new NotificationNotFoundException(notificationId);
         }
     }
 

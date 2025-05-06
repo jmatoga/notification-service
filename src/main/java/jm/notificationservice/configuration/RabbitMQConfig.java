@@ -41,21 +41,29 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue pushQueue() {
-        return QueueBuilder.durable("pushQueue").withArgument("x-max-priority", 10).build();
+        return QueueBuilder.durable("pushQueue")
+                       .withArgument("x-max-priority", 100)
+                       .build();
     }
 
     @Bean
     public Queue emailQueue() {
-        return QueueBuilder.durable("emailQueue").withArgument("x-max-priority", 10).build();
+        return QueueBuilder.durable("emailQueue")
+                       .withArgument("x-max-priority", 100)
+                       .build();
     }
 
     @Bean
     public Binding pushBinding() {
-        return BindingBuilder.bind(pushQueue()).to(exchange()).with(PUSH_ROUTING_KEY);
+        return BindingBuilder.bind(pushQueue())
+                       .to(exchange())
+                       .with(PUSH_ROUTING_KEY);
     }
 
     @Bean
     public Binding emailBinding() {
-        return BindingBuilder.bind(emailQueue()).to(exchange()).with(EMAIL_ROUTING_KEY);
+        return BindingBuilder.bind(emailQueue())
+                       .to(exchange())
+                       .with(EMAIL_ROUTING_KEY);
     }
 }
